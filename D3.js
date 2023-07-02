@@ -113,7 +113,8 @@ let characters = [];
   Come risultato dovresti ottenere qualcosa di simile: ["Luke Skywalker", "C-3PO", "R2-D2", etc..]
 */
 for (let i = 0; i < starWarsCharacters.length; i++) {
-  characters += starWarsCharacters[i].name + " ";
+  let everyCharacter = starWarsCharacters[i];
+  characters.push(everyCharacter.name);
 }
 console.log("characters", characters);
 
@@ -122,20 +123,19 @@ console.log("characters", characters);
   tutti gli oggetto femminili, CON QUESTA STRUTTURA: 
   {name: Leia Organa, hair_color: "brown", eye_color: "brown"}
 */
-const femaleCharacters = [
-  {
-    name: "Leia Organa",
-    hair_color: "brown",
-    eye_color: "brown",
-  },
+femaleCharacters = [];
 
-  {
-    name: "Beru Whitesun lars",
-    hair_color: "brown",
-    eye_color: "blue",
-  },
-];
-console.log(femaleCharacters);
+for (let i = 0; i < starWarsCharacters.length; i++) {
+  const everyCharacter = starWarsCharacters[i];
+  if (everyCharacter.gender === "female") {
+    femaleCharacters.push({
+      name: starWarsCharacters[i].name,
+      hair_color: starWarsCharacters[i].hair_color,
+      eye_color: starWarsCharacters[i].eye_color,
+    });
+  }
+}
+console.log("female characters:", femaleCharacters);
 
 /* ESERCIZIO 4
   Crea un oggetto "eyeColor" che abbia le seguenti proprietà: blue, yellow, brown, red, blue-gray.
@@ -155,10 +155,38 @@ const eyeColor = {
   Ogni personaggio dovrà finire nell'array corrispondente al suo colore degli occhi (al valore della sua proprietà
     "eye_color").
 */
+for (let i = 0; i < starWarsCharacters.length; i++) {
+  switch (starWarsCharacters[i].eye_color) {
+    case "blue":
+      eyeColor.blue.push(starWarsCharacters[i]);
+      break;
+    case "yellow":
+      eyeColor.yellow.push(starWarsCharacters[i]);
+      break;
+    case "brown":
+      eyeColor.brown.push(starWarsCharacters[i]);
+      break;
+    case "red":
+      eyeColor.red.push(starWarsCharacters[i]);
+      break;
+    default:
+      eyeColor["blue-gray"].push(starWarsCharacters[i]);
+  }
+}
+console.log("eye color", eyeColor);
 
 /* ESERCIZIO 6
   Usa un while loop per calcolare la massa totale dell'equipaggio. Salvala in una variabile chiamata "crewMass".
 */
+let crewMass = 0;
+let index = 0;
+
+while (index < starWarsCharacters.length) {
+  let charactersMass = starWarsCharacters[index];
+  crewMass += parseInt(charactersMass.mass);
+  index++;
+}
+console.log("crew mass", crewMass);
 
 /* ESERCIZIO 7
   Crea uno switch statement per rivelare la tipologia di carico, utilizzando la massa totale, di un'ipotetica astronave
@@ -174,10 +202,44 @@ const eyeColor = {
   Una volta fatto, modifica la massa di qualche elemento dell'equipaggio e vedi se riesci ad ottenere un messaggio diverso.
 */
 
+// crewMass = 400;
+// crewMass = 550;
+//crewMass = 767;
+//crewMass = 900;
+//crewMass = 1100;
+
+switch (true) {
+  case crewMass < 500:
+    console.log("Ship in under loaded");
+    break;
+  case crewMass >= 500 && crewMass < 700:
+    console.log("Ship is half loaded");
+    break;
+  case crewMass >= 700 && crewMass < 900:
+    console.log("Warning: Load is over 700");
+    break;
+  case crewMass >= 900 && crewMass < 1000:
+    console.log("Critical Load: Over 900");
+    break;
+  case crewMass >= 1000:
+    console.log("DANGER! OVERLOAD ALERT: escape from ship now!");
+    break;
+  default:
+    console.log("There is something wrong...");
+}
+
 /* ESERCIZIO 8
   Usa un for loop per cambiare il valore della proprietà "gender" di alcuni personaggi dal valore "n/a" a "robot"
   (Tip: puoi effettuare la riassegnazione del valore corrispondente o creare un nuovo array)
 */
+
+for (let i = 0; i < starWarsCharacters.length; i++) {
+  const changeTheGender = starWarsCharacters[i];
+  if (changeTheGender.gender === "n/a") {
+    starWarsCharacters[i].gender = "robot";
+  }
+}
+console.log("change the gender", starWarsCharacters);
 
 /* --EXTRA-- ESERCIZIO 9
   Utilizzando gli elementi presenti nell'array "femaleCharacters" rimuovi dall'array "characters" le stringhe
@@ -188,6 +250,18 @@ const eyeColor = {
 
   Una volta fatto crea un console.log per controllare la proprietà length di "characters" prima e dopo l'operazione.
 */
+
+// get female names from femaleCharacters
+let onlyNames = [];
+for (let i = 0; i < femaleCharacters.length; i++) {
+  onlyNames.push(femaleCharacters[i].name);
+}
+console.log("only names", onlyNames);
+console.log("onlyNames length", onlyNames.length);
+
+// comparison between femaleCharacters names and characters names
+
+// RIPRENDI DA QUI------------
 
 /* --EXTRA-- ESERCIZIO 10
   Crea una funzionalità che prenda un elemento casuale dall'array "starWarsCharacters" e ne stampi in console le
